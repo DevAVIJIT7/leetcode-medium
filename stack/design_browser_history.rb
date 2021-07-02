@@ -28,3 +28,63 @@
 # browserHistory.forward(2);                // You are in "linkedin.com", you cannot move forward any steps.
 # browserHistory.back(2);                   // You are in "linkedin.com", move back two steps to "facebook.com" then to "google.com". return "google.com"
 # browserHistory.back(7);                   // You are in "google.com", you can move back only one step to "leetcode.com". return "leetcode.com"
+
+class BrowserHistory
+
+=begin
+    :type homepage: String
+=end
+    def initialize(homepage)
+        @homepage = homepage
+        @st = [@homepage]
+        @i = 0
+    end
+
+
+=begin
+    :type url: String
+    :rtype: Void
+=end
+    def visit(url)
+        if @i < @st.length - 1
+            while @i < @st.length-1
+                @st.pop()
+            end
+        end
+        @st << url
+        
+        @i = @st.length - 1
+    end
+
+
+=begin
+    :type steps: Integer
+    :rtype: String
+=end
+    def back(steps)
+        @i -= steps
+        @i = 0 if @i < 0
+        
+        @st[@i]
+    end
+
+
+=begin
+    :type steps: Integer
+    :rtype: String
+=end
+    def forward(steps)
+        @i += steps
+        @i = @st.length - 1 if @i >= @st.length
+        
+        @st[@i]
+    end
+
+
+end
+    
+# Your BrowserHistory object will be instantiated and called as such:
+# obj = BrowserHistory.new(homepage)
+# obj.visit(url)
+# param_2 = obj.back(steps)
+# param_3 = obj.forward(steps)
